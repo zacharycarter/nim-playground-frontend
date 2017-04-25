@@ -37,7 +37,7 @@ proc compile(ev: Event; n: VNode) =
   programLog.value = ""
   let ele = document.getElementById("editor")
   let req = %* {"code": $ele.getEditor().getValue()}
-  ajaxPost("http://localhost:5000/compile", @[], ($req).cstring, cb)
+  ajaxPost("http://162.243.192.65:3000/compile", @[], ($req).cstring, cb)
 
 proc createDom(): VNode =
   result = buildHtml(tdiv(class="app-wrapper")):
