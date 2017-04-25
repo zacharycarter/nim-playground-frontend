@@ -39,6 +39,9 @@ proc compile(ev: Event; n: VNode) =
   let req = %* {"code": $ele.getEditor().getValue()}
   ajaxPost("http://162.243.192.65:3000/compile", @[], ($req).cstring, cb)
 
+proc loaded(ev: dom.Event) =
+  loadScript "src/ace.js"
+
 proc createDom(): VNode =
   result = buildHtml(tdiv(class="app-wrapper")):
     section(class = "app"):
@@ -69,4 +72,4 @@ proc createDom(): VNode =
       footer(class = "footer")
 
 setRenderer createDom
-loadScript "src/ace.js"
+document.body.onload = loaded
