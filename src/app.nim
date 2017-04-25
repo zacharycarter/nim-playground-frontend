@@ -69,4 +69,4 @@ proc createDom(): VNode =
       footer(class = "footer")
 
 setRenderer createDom
-loadScript "ace.js"
+loadScript "src/ace.js"
