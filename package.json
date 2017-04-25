@@ -1,0 +1,14 @@
+{
+  "name": "nim-playground-frontend",
+  "version": "1.0.0",
+  "description": "Front end for nim-playground",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "ace-builds": "^1.2.6",
+    "spectre.css": "^0.2.13"
+  }
+}
