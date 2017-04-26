@@ -4,7 +4,6 @@ var editor = ace.edit("editor");
 editor.setTheme("ace/theme/monokai");
 editor.getSession().setMode("ace/mode/python");
 editor.setAutoScrollEditorIntoView(true);
-editor.maxLines = 100;
 editor.getSession().setUseWrapMode(true);
 
 var editorEle = document.getElementById("editor")
