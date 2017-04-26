@@ -9,6 +9,6 @@
   "license": "MIT",
   "dependencies": {
     "ace-builds": "^1.2.6",
-    "spectre.css": "^0.2.13"
+    "bulma": "^0.4.1"
   }
 }

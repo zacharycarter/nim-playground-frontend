@@ -5,6 +5,7 @@ editor.setTheme("ace/theme/monokai");
 editor.getSession().setMode("ace/mode/python");
 editor.setAutoScrollEditorIntoView(true);
 editor.getSession().setUseWrapMode(true);
+editor.resize();
 
 var editorEle = document.getElementById("editor")
 editorEle.editor = editor;

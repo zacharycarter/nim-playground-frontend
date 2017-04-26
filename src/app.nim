@@ -11,7 +11,6 @@ var loading = ""
 proc getValue(n: Node): cstring {.importcpp: "#.getValue()".}
 proc setValue(n: Node, text: cstring) {.importcpp: "#.setValue()".}
 proc getEditor(n: Node): Node {.importcpp: "#.getEditor()".}
-proc resize(n: Node) {.importcpp: "#.resize()".}
 proc `value=`(n: Node, text: cstring) {.importcpp: "#.value = #".}
 
 proc cb (httpStatus: int, response: cstring) =
@@ -19,58 +18,89 @@ proc cb (httpStatus: int, response: cstring) =
     loading = ""
     let parsed = parseJson($response)
     let compileResponse = to(parsed, CompileResponse)
-    var compileLog = document.getElementById("compile-log")
-    var programLog = document.getElementById("program-result")
-    compileLog.value = compileResponse.compileLog
-    programLog.value = compileResponse.log
+    var compileLogContainer = document.getElementById("compile-log")
+    var compileLog = document.getElementById("compile-log-content")
+    if compileResponse.compileLog.contains "Success":
+      compileLogContainer.classList.remove("is-dark")
+      compileLogContainer.classList.remove("is-danger")
+      compileLogContainer.classList.add("is-success")
+    else:
+      compileLogContainer.classList.remove("is-dark")
+      compileLogContainer.classList.remove("is-success")
+      compileLogContainer.classList.add("is-danger")      
+
+    compileLog.innerHtml = compileResponse.compileLog
+
+    var programLogContainer = document.getElementById("program-log")
+    var programLog = document.getElementById("program-log-content")
+    programLogContainer.classList.remove("is-dark")
+    programLogContainer.classList.add("is-info")
+    programLog.innerHtml = compileResponse.log
 
 proc clear(ev: Event; n: VNode) =
   let ele = document.getElementById("editor")
   ele.getEditor().setValue("")
 
-proc resize(ev: Event; n: VNode) =
-  let ele = document.getElementById("editor")
-  ele.getEditor().resize()
-
 proc compile(ev: Event; n: VNode) =
-  var compileLog = document.getElementById("compile-log")
-  var programLog = document.getElementById("program-result")
-  compileLog.value = ""
-  programLog.value = ""
+  var compileLogContainer = document.getElementById("compile-log")
+  var compileLog = document.getElementById("compile-log-content")
+  var programLogContainer = document.getElementById("program-log")
+  var programLog = document.getElementById("program-log-content")
+  compileLog.innerHtml = ""
+  compileLogContainer.classList.remove("is-success")
+  compileLogContainer.classList.remove("is-danger")
+  compileLogContainer.classList.add("is-dark")
+  programLog.innerHtml = ""
+  programLogContainer.classList.remove("is-info")
+  programLogContainer.classList.add("is-dark")
+  
+
   let ele = document.getElementById("editor")
   let req = %* {"code": $ele.getEditor().getValue()}
-  loading = "loading"
+  loading = "is-loading"
   ajaxPost("/compile", @[], ($req).cstring, cb)
   
 
 proc createDom(): VNode =
-  result = buildHtml(tdiv(class="app-wrapper")):
-    section(class = "app"):
-      header(class = "header")
-      section(class = "main"):
-        tdiv(class="container"):
-          tdiv(class="columns"):
-            tdiv(class="column col-8", id="editor-container"):
-              tdiv(id="editor", class="pt-10")
-              tdiv(class="pt-10"):
-                button(class="btn mt-5 mr-5 $1" % loading, onclick=compile):
-                  text "Submit"
-                button(class="btn mt-5", onclick=clear):
-                  text "Clear"
-
-
-            tdiv(class="column col-4"):
-              form:
-                tdiv(class="form-group"):
-                  label(class="form-label", `for`="input-compile-log"):
-                    text "Compiler Log:"
-                  textarea(class="form-input", id="compile-log", rows="10", onmouseup=resize)
-                  label(class="form-label", `for`="program-result"):
-                    text "Program Result:"
-                  textarea(class="form-input", id="program-result", rows="10", onmouseup=resize)
-              
-                
-      footer(class = "footer")
-      script(src = "src/ace.js")
+  result = buildHtml(tdiv(class="container")):
+    nav(class="nav"):
+      tdiv(class="nav-left"):
+        a(class="nav-item", href="https://nim-lang.org"):
+          img(src="https://nim-lang.org/assets/img/logo.svg", alt="Nim logo")
+    section(class="section"):
+      tdiv(class="heading"):
+        h1(class="title"):
+          text "Playground"
+        h2(class="subtitle"):
+          text "Execute snippets of "
+          strong:
+            text "Nim"
+          text " code from your browser"
+      hr()
+      tdiv(class="content"):
+        tdiv(class="tile is-ancestor"):
+          tdiv(class="tile is-parent"):
+            tdiv(class="tile is-child box"):
+              tdiv(class="editor-container"):
+                tdiv(id="editor")
+          tdiv(class="tile is-vertical is-parent"):
+            tdiv(class="tile is-child box"):
+              article(class="message is-dark", id="compile-log"):
+                tdiv(class="message-header"):
+                  text "Compile Log"
+                tdiv(class="message-body", id="compile-log-content")
+            tdiv(class="tile is-child box"):
+              article(class="message is-dark", id="program-log"):
+                tdiv(class="message-header"):
+                  text "Program Result"
+                tdiv(class="message-body", id="program-log-content")
+      tdiv(class="columns"):
+        tdiv(class="column is-narrow"):
+          button(class="button $1" % loading, onclick=compile):
+            text "Compile"
+        tdiv(class="column is-narrow"):
+          button(class="button", onclick=clear):
+            text "Clear"
+    script(src = "src/ace.js")
 
 setRenderer createDom
