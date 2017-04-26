@@ -1,4 +1,4 @@
-import karax, karaxdsl, vdom, kajax, json
+import karax, karaxdsl, vdom, kajax, json, strutils
 import dom except Event
 
 type
@@ -6,6 +6,7 @@ type
     compileLog: string
     log: string
 
+var loading = ""
 
 proc getValue(n: Node): cstring {.importcpp: "#.getValue()".}
 proc setValue(n: Node, text: cstring) {.importcpp: "#.setValue()".}
@@ -15,6 +16,7 @@ proc `value=`(n: Node, text: cstring) {.importcpp: "#.value = #".}
 
 proc cb (httpStatus: int, response: cstring) =
   if httpStatus == 200:
+    loading = ""
     let parsed = parseJson($response)
     let compileResponse = to(parsed, CompileResponse)
     var compileLog = document.getElementById("compile-log")
@@ -37,7 +39,9 @@ proc compile(ev: Event; n: VNode) =
   programLog.value = ""
   let ele = document.getElementById("editor")
   let req = %* {"code": $ele.getEditor().getValue()}
+  loading = "loading"
   ajaxPost("http://162.243.192.65:3000/compile", @[], ($req).cstring, cb)
+  
 
 proc createDom(): VNode =
   result = buildHtml(tdiv(class="app-wrapper")):
@@ -49,7 +53,7 @@ proc createDom(): VNode =
             tdiv(class="column col-8", id="editor-container"):
               tdiv(id="editor", class="pt-10")
               tdiv(class="pt-10"):
-                button(class="btn mt-5 mr-5", onclick=compile):
+                button(class="btn mt-5 mr-5 $1" % loading, onclick=compile):
                   text "Submit"
                 button(class="btn mt-5", onclick=clear):
                   text "Clear"
