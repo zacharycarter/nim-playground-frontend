@@ -74,6 +74,13 @@ proc createDom(): VNode =
                 h1(class="title", id="playground-logo"):
                   text "Playground"
       #hr()
+      tdiv(class="columns"):
+        tdiv(class="column is-narrow"):
+          button(class="button $1" % loading, onclick=compile):
+            text "Compile"
+        tdiv(class="column is-narrow"):
+          button(class="button", onclick=clear):
+            text "Clear"
       tdiv(class="hero-body"):
         tdiv(class="tile is-ancestor"):
           tdiv(class="tile is-parent editor-wrapper"):
@@ -91,13 +98,7 @@ proc createDom(): VNode =
                 tdiv(class="message-header"):
                   text "Program Result"
                 tdiv(class="message-body", id="program-log-content")
-      tdiv(class="columns"):
-        tdiv(class="column is-narrow"):
-          button(class="button $1" % loading, onclick=compile):
-            text "Compile"
-        tdiv(class="column is-narrow"):
-          button(class="button", onclick=clear):
-            text "Clear"
+        
     script(src = "static/js/ace.js")
 
 setRenderer createDom
