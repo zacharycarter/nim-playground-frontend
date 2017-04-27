@@ -74,13 +74,19 @@ proc createDom(): VNode =
                 h1(class="title", id="playground-logo"):
                   text "Playground"
       #hr()
-      tdiv(class="columns"):
-        tdiv(class="column is-narrow"):
-          button(class="button $1" % loading, onclick=compile):
-            text "Compile"
-        tdiv(class="column is-narrow"):
-          button(class="button", onclick=clear):
-            text "Clear"
+      section(class="section"):
+        h1(class="sub-title", id="playground-logo"):
+          text "Compile and execute snippets of "
+          strong:
+            text "Nim"
+          text " from your browser."
+        tdiv(class="columns"):
+          tdiv(class="column is-narrow"):
+            button(class="button $1" % loading, onclick=compile):
+              text "Compile"
+          tdiv(class="column is-narrow"):
+            button(class="button", onclick=clear):
+              text "Clear"
       tdiv(class="hero-body"):
         tdiv(class="tile is-ancestor"):
           tdiv(class="tile is-parent editor-wrapper"):
@@ -88,12 +94,12 @@ proc createDom(): VNode =
               tdiv(class="editor-container"):
                 tdiv(id="editor")
           tdiv(class="tile is-vertical is-parent"):
-            tdiv(class="tile is-child box"):
+            tdiv(class="tile is-child"):
               article(class="message is-dark", id="compile-log"):
                 tdiv(class="message-header"):
                   text "Compile Log"
                 tdiv(class="message-body", id="compile-log-content")
-            tdiv(class="tile is-child box"):
+            tdiv(class="tile is-child"):
               article(class="message is-dark", id="program-log"):
                 tdiv(class="message-header"):
                   text "Program Result"
