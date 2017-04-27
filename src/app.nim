@@ -68,16 +68,16 @@ proc createDom(): VNode =
         tdiv(class="nav-left"):
           a(class="nav-item", href="https://nim-lang.org"):
             img(src="https://nim-lang.org/assets/img/logo.svg", alt="Nim logo")
-      tdiv(class="heading"):
-        h1(class="title"):
-          text "Playground"
-        h2(class="subtitle"):
-          text "Execute snippets of "
-          strong:
-            text "Nim"
-          text " code from your browser"
       #hr()
       tdiv(class="hero-body"):
+        tdiv(class="heading"):
+          h1(class="title"):
+            text "Playground"
+          h2(class="subtitle"):
+            text "Execute snippets of "
+            strong:
+              text "Nim"
+            text " code from your browser"
         tdiv(class="tile is-ancestor"):
           tdiv(class="tile is-parent"):
             tdiv(class="tile is-child box"):
