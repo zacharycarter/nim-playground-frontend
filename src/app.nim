@@ -89,14 +89,12 @@ proc createDom(): VNode =
             article(class="message is-dark", id="compile-log"):
               tdiv(class="message-header"):
                 text "Compile Log"
-              tdiv(class="message-body"):
-                pre(id="compile-log-content")
+              pre(class="message-body", id="compile-log-content")
           tdiv(class="tile is-child"):
             article(class="message is-dark", id="program-log"):
               tdiv(class="message-header"):
                 text "Program Result"
-              tdiv(class="message-body"):
-                pre(id="program-log-content")
+              pre(class="message-body", id="program-log-content")
         #tdiv(class="hero-foot"):
       tdiv(class="columns"):
         tdiv(class="column is-narrow"):
