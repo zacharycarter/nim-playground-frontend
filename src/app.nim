@@ -36,6 +36,7 @@ proc cb (httpStatus: int, response: cstring) =
     programLogContainer.classList.remove("is-dark")
     programLogContainer.classList.add("is-info")
     programLog.innerHtml = compileResponse.log
+    
 
 proc clear(ev: Event; n: VNode) =
   let ele = document.getElementById("editor")
@@ -59,6 +60,7 @@ proc compile(ev: Event; n: VNode) =
   let req = %* {"code": $ele.getEditor().getValue()}
   loading = "is-loading"
   ajaxPost("/compile", @[], ($req).cstring, cb)
+  kout ele
   
 
 proc createDom(): VNode =
