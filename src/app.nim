@@ -21,19 +21,14 @@ proc cb (httpStatus: int, response: cstring) =
     var compileLogContainer = document.getElementById("compile-log")
     var compileLog = document.getElementById("compile-log-content")
     if compileResponse.compileLog.contains "Success":
-      compileLogContainer.classList.remove("is-dark")
-      compileLogContainer.classList.remove("is-danger")
       compileLogContainer.classList.add("is-success")
     else:
-      compileLogContainer.classList.remove("is-dark")
-      compileLogContainer.classList.remove("is-success")
-      compileLogContainer.classList.add("is-danger")      
+      compileLog.classList.add("is-danger")      
 
     compileLog.innerHtml = compileResponse.compileLog
 
     var programLogContainer = document.getElementById("program-log")
     var programLog = document.getElementById("program-log-content")
-    programLogContainer.classList.remove("is-dark")
     programLogContainer.classList.add("is-info")
     programLog.innerHtml = compileResponse.log
     
@@ -43,17 +38,17 @@ proc clear(ev: Event; n: VNode) =
   ele.getEditor().setValue("")
 
 proc compile(ev: Event; n: VNode) =
-  var compileLogContainer = document.getElementById("compile-log")
+  #var compileLogContainer = document.getElementById("compile-log")
   var compileLog = document.getElementById("compile-log-content")
-  var programLogContainer = document.getElementById("program-log")
+  #var programLogContainer = document.getElementById("program-log")
   var programLog = document.getElementById("program-log-content")
   compileLog.innerHtml = ""
-  compileLogContainer.classList.remove("is-success")
-  compileLogContainer.classList.remove("is-danger")
-  compileLogContainer.classList.add("is-dark")
+  #compileLogContainer.classList.remove("is-success")
+  #compileLogContainer.classList.remove("is-danger")
+  #compileLogContainer.classList.add("is-dark")
   programLog.innerHtml = ""
-  programLogContainer.classList.remove("is-info")
-  programLogContainer.classList.add("is-dark")
+  #programLogContainer.classList.remove("is-info")
+  #programLogContainer.classList.add("is-dark")
   
 
   let ele = document.getElementById("editor")
@@ -73,30 +68,35 @@ proc createDom(): VNode =
           tdiv(class="heading", id="playground-logo-container"):
             h1(class="title", id="playground-logo"):
               text "Playground"
-    tdiv(class="hero"):
-      tdiv(class="hero-body"):
-        tdiv(class="container"):
-          h1(class="title"):
-            text "Compile"
-          h2(class="subtitle"):
-            text "Snippets of Nim in your browser"
+    #tdiv(class="hero"):
+    #  tdiv(class="hero-body"):
+        #tdiv(class="container"):
+        
     tdiv(class="section"):
+      h1(class="title"):
+        text "Compile"
+      h2(class="subtitle"):
+        text "Snippets of Nim in your browser"
       tdiv(class="tile is-ancestor"):
-        tdiv(class="tile is-parent editor-wrapper"):
-          tdiv(class="tile is-child box"):
+        tdiv(class="tile is-parent"):
+          tdiv(class="tile is-child box editor-wrapper"):
             tdiv(class="editor-container"):
               tdiv(id="editor")
         tdiv(class="tile is-vertical is-parent"):
           tdiv(class="tile is-child"):
-            article(class="message is-dark", id="compile-log"):
-              tdiv(class="message-header"):
-                text "Compile Log"
-              pre(class="message-body", id="compile-log-content")
+            tdiv(class="notification", id="compile-log"):
+              pre(id="compile-log-content")
+            #article(class="message is-dark", id="compile-log"):
+            #  tdiv(class="message-header"):
+            #    text "Compile Log"
+            #  pre(class="message-body", id="compile-log-content")
           tdiv(class="tile is-child"):
-            article(class="message is-dark", id="program-log"):
-              tdiv(class="message-header"):
-                text "Program Result"
-              pre(class="message-body", id="program-log-content")
+            tdiv(class="notification", id="program-log"):
+              pre(id="program-log-content")
+            #article(class="message is-dark", id="program-log"):
+            #  tdiv(class="message-header"):
+            #    text "Program Result"
+            #  pre(class="message-body", id="program-log-content")
         #tdiv(class="hero-foot"):
       tdiv(class="columns"):
         tdiv(class="column is-narrow"):

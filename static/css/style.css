@@ -4313,4 +4313,10 @@ pre {
   word-wrap: break-word;
   /* Internet Explorer 5.5+ */ }
 
+.notification, .notification pre {
+  height: 100%; }
+
+pre {
+  padding: 1em; }
+
 /*# sourceMappingURL=style.css.map */
