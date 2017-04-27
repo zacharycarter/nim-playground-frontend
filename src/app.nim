@@ -38,17 +38,15 @@ proc clear(ev: Event; n: VNode) =
   ele.getEditor().setValue("")
 
 proc compile(ev: Event; n: VNode) =
-  #var compileLogContainer = document.getElementById("compile-log")
+  var compileLogContainer = document.getElementById("compile-log")
   var compileLog = document.getElementById("compile-log-content")
-  #var programLogContainer = document.getElementById("program-log")
+  var programLogContainer = document.getElementById("program-log")
   var programLog = document.getElementById("program-log-content")
   compileLog.innerHtml = ""
-  #compileLogContainer.classList.remove("is-success")
-  #compileLogContainer.classList.remove("is-danger")
-  #compileLogContainer.classList.add("is-dark")
+  compileLogContainer.classList.remove("is-success")
+  compileLogContainer.classList.remove("is-danger")
   programLog.innerHtml = ""
-  #programLogContainer.classList.remove("is-info")
-  #programLogContainer.classList.add("is-dark")
+  programLogContainer.classList.remove("is-info")
   
 
   let ele = document.getElementById("editor")
