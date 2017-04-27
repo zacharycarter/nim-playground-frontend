@@ -4295,6 +4295,9 @@ html, body {
   bottom: 0;
   left: 0; }
 
+#playground-log-container {
+  overflow: hidden; }
+
 #playground-logo {
   line-height: 1.75; }
 

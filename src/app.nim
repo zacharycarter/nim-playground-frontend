@@ -70,7 +70,7 @@ proc createDom(): VNode =
             a(class="nav-item", href="https://nim-lang.org"):
               img(src="static/img/logo.svg", alt="Nim logo")
             tdiv(class="nav-right"):
-              tdiv(class="heading"):
+              tdiv(class="heading", id="playground-logo-container"):
                 h1(class="title", id="playground-logo"):
                   text "Playground"
       #hr()
