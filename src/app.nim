@@ -64,20 +64,17 @@ proc compile(ev: Event; n: VNode) =
 proc createDom(): VNode =
   result = buildHtml(tdiv(class="container")):
     section(class="hero is-fullheight"):
-      nav(class="nav"):
-        tdiv(class="nav-left"):
-          a(class="nav-item", href="https://nim-lang.org"):
-            img(src="https://nim-lang.org/assets/img/logo.svg", alt="Nim logo")
+      tdiv(class="hero-head"):
+        nav(class="nav"):
+          tdiv(class="nav-left"):
+            a(class="nav-item", href="https://nim-lang.org"):
+              img(src="static/img/logo.svg", alt="Nim logo")
+            tdiv(class="nav-right"):
+              tdiv(class="heading"):
+                h1(class="title", id="playground-logo"):
+                  text "Playground"
       #hr()
       tdiv(class="hero-body"):
-        tdiv(class="heading"):
-          h1(class="title"):
-            text "Playground"
-          h2(class="subtitle"):
-            text "Execute snippets of "
-            strong:
-              text "Nim"
-            text " code from your browser"
         tdiv(class="tile is-ancestor"):
           tdiv(class="tile is-parent"):
             tdiv(class="tile is-child box"):
@@ -101,6 +98,6 @@ proc createDom(): VNode =
         tdiv(class="column is-narrow"):
           button(class="button", onclick=clear):
             text "Clear"
-    script(src = "src/ace.js")
+    script(src = "static/js/ace.js")
 
 setRenderer createDom
