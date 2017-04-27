@@ -64,43 +64,47 @@ proc compile(ev: Event; n: VNode) =
 proc createDom(): VNode =
   result = buildHtml(tdiv(class="container")):
     section(class="hero is-fullheight"):
-      nav(class="nav"):
-        tdiv(class="nav-left"):
-          a(class="nav-item", href="https://nim-lang.org"):
-            img(src="https://nim-lang.org/assets/img/logo.svg", alt="Nim logo")
+      tdiv(class="hero-head"):
+        nav(class="nav"):
+          tdiv(class="nav-left"):
+            a(class="nav-item", href="https://nim-lang.org"):
+              img(src="static/img/logo.svg", alt="Nim logo")
+            tdiv(class="nav-right"):
+              tdiv(class="heading", id="playground-logo-container"):
+                h1(class="title", id="playground-logo"):
+                  text "Playground"
       #hr()
+      section(class="section"):
+        h1(class="sub-title", id="playground-logo"):
+          text "Compile and execute snippets of "
+          strong:
+            text "Nim"
+          text " from your browser."
+        tdiv(class="columns"):
+          tdiv(class="column is-narrow"):
+            button(class="button $1" % loading, onclick=compile):
+              text "Compile"
+          tdiv(class="column is-narrow"):
+            button(class="button", onclick=clear):
+              text "Clear"
       tdiv(class="hero-body"):
-        tdiv(class="heading"):
-          h1(class="title"):
-            text "Playground"
-          h2(class="subtitle"):
-            text "Execute snippets of "
-            strong:
-              text "Nim"
-            text " code from your browser"
         tdiv(class="tile is-ancestor"):
-          tdiv(class="tile is-parent"):
+          tdiv(class="tile is-parent editor-wrapper"):
             tdiv(class="tile is-child box"):
               tdiv(class="editor-container"):
                 tdiv(id="editor")
           tdiv(class="tile is-vertical is-parent"):
-            tdiv(class="tile is-child box"):
+            tdiv(class="tile is-child"):
               article(class="message is-dark", id="compile-log"):
                 tdiv(class="message-header"):
                   text "Compile Log"
                 tdiv(class="message-body", id="compile-log-content")
-            tdiv(class="tile is-child box"):
+            tdiv(class="tile is-child"):
               article(class="message is-dark", id="program-log"):
                 tdiv(class="message-header"):
                   text "Program Result"
                 tdiv(class="message-body", id="program-log-content")
-      tdiv(class="columns"):
-        tdiv(class="column is-narrow"):
-          button(class="button $1" % loading, onclick=compile):
-            text "Compile"
-        tdiv(class="column is-narrow"):
-          button(class="button", onclick=clear):
-            text "Clear"
-    script(src = "src/ace.js")
+        
+    script(src = "static/js/ace.js")
 
 setRenderer createDom

@@ -1,12 +1,5 @@
 @import "../node_modules/bulma/sass/utilities/initial-variables";
 
-$yellow: #ffe953;
-$title: $yellow;
-$subtitle: $white;
-$subtitle-strong: $white;
-$white: #171921;
-$body-background: #171921;
-
 // 4. Import the rest of Bulma
 @import "../node_modules/bulma/bulma";
 
@@ -21,25 +14,16 @@ html, body {
 }
 
 .tile.is-ancestor {
-  height: 70vh;
-}
-
-.box {
-  background-color: #1b1b1b;
-}
-
-.editor-container {
   position: relative;
-  width: 100%;
-  height: 100%;
 }
 
-.button {
-  color: #ffffff;
+.editor-wrapper {
+  height: 70vh;
+  position: relative;
 }
 
 .button:hover {
-  color: $yellow;
+  color: $primary;
 }
 
 #editor {
@@ -48,4 +32,12 @@ html, body {
     right: 0;
     bottom: 0;
     left: 0;
+}
+
+#playground-logo-container {
+  overflow: hidden;
+}
+
+#playground-logo {
+  line-height: 1.75;
 }
