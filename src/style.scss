@@ -54,6 +54,11 @@ pre {
   height: 100%;
 }
 
+.log-container {
+  min-height: 0;
+}
+
 pre {
   padding: 1em;
+  overflow: scroll;
 }

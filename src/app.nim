@@ -83,14 +83,14 @@ proc createDom(): VNode =
             tdiv(class="editor-container"):
               tdiv(id="editor")
         tdiv(class="tile is-vertical is-parent"):
-          tdiv(class="tile is-child"):
+          tdiv(class="tile is-child log-container"):
             tdiv(class="notification", id="compile-log"):
               pre(id="compile-log-content")
             #article(class="message is-dark", id="compile-log"):
             #  tdiv(class="message-header"):
             #    text "Compile Log"
             #  pre(class="message-body", id="compile-log-content")
-          tdiv(class="tile is-child"):
+          tdiv(class="tile is-child log-container"):
             tdiv(class="notification", id="program-log"):
               pre(id="program-log-content")
             #article(class="message is-dark", id="program-log"):

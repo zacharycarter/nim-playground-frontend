@@ -4316,7 +4316,11 @@ pre {
 .notification, .notification pre {
   height: 100%; }
 
+.log-container {
+  min-height: 0; }
+
 pre {
-  padding: 1em; }
+  padding: 1em;
+  overflow: scroll; }
 
 /*# sourceMappingURL=style.css.map */
