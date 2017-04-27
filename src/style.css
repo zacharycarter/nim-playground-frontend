@@ -4274,6 +4274,9 @@ html, body {
   padding: 0;
   height: 100vh; }
 
+.section {
+  padding: 1.5rem; }
+
 .tile.is-ancestor {
   height: 70vh; }
 
