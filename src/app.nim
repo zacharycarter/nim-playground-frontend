@@ -72,7 +72,7 @@ proc createDom(): VNode =
         
     tdiv(class="section"):
       h1(class="title"):
-        text "Compile"
+        text "Compile & Run"
       h2(class="subtitle"):
         text "Snippets of Nim in your browser"
       tdiv(class="tile is-ancestor"):
