@@ -4278,12 +4278,11 @@ html, body {
   padding: 1.5rem; }
 
 .tile.is-ancestor {
-  height: 70vh; }
+  position: relative; }
 
-.editor-container {
-  position: relative;
-  width: 100%;
-  height: 100%; }
+.editor-wrapper {
+  height: 70vh;
+  position: relative; }
 
 .button:hover {
   color: #ffdd57; }

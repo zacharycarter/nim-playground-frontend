@@ -76,7 +76,7 @@ proc createDom(): VNode =
       #hr()
       tdiv(class="hero-body"):
         tdiv(class="tile is-ancestor"):
-          tdiv(class="tile is-parent"):
+          tdiv(class="tile is-parent editor-wrapper"):
             tdiv(class="tile is-child box"):
               tdiv(class="editor-container"):
                 tdiv(id="editor")
