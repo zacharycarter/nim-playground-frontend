@@ -10,6 +10,16 @@ $body-background: #171921;
 // 4. Import the rest of Bulma
 @import "../node_modules/bulma/bulma";
 
+html, body {
+  margin:0; 
+  padding:0; 
+  height:100vh; 
+}
+
+.tile.is-ancestor {
+  height: 70vh;
+}
+
 .box {
   background-color: #1b1b1b;
 }

@@ -4269,6 +4269,14 @@ label.panel-block {
   background-color: whitesmoke;
   padding: 3rem 1.5rem 6rem; }
 
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100vh; }
+
+.tile.is-ancestor {
+  height: 70vh; }
+
 .box {
   background-color: #1b1b1b; }
 
