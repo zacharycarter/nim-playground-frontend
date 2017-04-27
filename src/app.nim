@@ -23,7 +23,7 @@ proc cb (httpStatus: int, response: cstring) =
     if compileResponse.compileLog.contains "Success":
       compileLogContainer.classList.add("is-success")
     else:
-      compileLog.classList.add("is-danger")      
+      compileLogContainer.classList.add("is-danger")      
 
     compileLog.innerHtml = compileResponse.compileLog
 
