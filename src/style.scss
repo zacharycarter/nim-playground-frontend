@@ -50,7 +50,11 @@ pre {
     word-wrap: break-word;       /* Internet Explorer 5.5+ */
 }
 
-.notification, .notification pre {
+.message {
+  overflow: scroll;
+}
+
+.message-body {
   height: 100%;
 }
 
@@ -59,6 +63,6 @@ pre {
 }
 
 pre {
+  max-height: 100%;
   padding: 1em;
-  overflow: scroll;
 }
