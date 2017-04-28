@@ -51,18 +51,17 @@ pre {
 }
 
 .message {
-  overflow: scroll;
-}
-
-.message-body {
   height: 100%;
 }
 
 .log-container {
   min-height: 0;
+  max-height: 100%;
 }
 
 pre {
   max-height: 100%;
+  height:100%;
   padding: 1em;
+  overflow: scroll;
 }
