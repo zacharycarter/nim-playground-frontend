@@ -58,14 +58,13 @@ proc compile(ev: Event; n: VNode) =
 
 proc createDom(): VNode =
   result = buildHtml(tdiv(class="container", id="wrapper")):
-    nav(class="nav"):
+    nav(class="nav has-shadow"):
       tdiv(class="nav-left"):
         a(class="nav-item", href="https://nim-lang.org"):
           img(src="static/img/logo.svg", alt="Nim logo")
-        tdiv(class="nav-right"):
-          tdiv(class="heading", id="playground-logo-container"):
-            h1(class="title", id="playground-logo"):
-              text "Playground"
+        tdiv(class="heading", id="playground-logo-container"):
+          h1(class="title", id="playground-logo"):
+            text "Playground"
     #tdiv(class="hero"):
     #  tdiv(class="hero-body"):
         #tdiv(class="container"):
