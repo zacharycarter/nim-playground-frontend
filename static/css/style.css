@@ -4314,13 +4314,16 @@ pre {
   /* Internet Explorer 5.5+ */ }
 
 .message {
+  position: absolute;
+  width: 100%;
   height: 100%;
   display: flex;
   flex-direction: column; }
 
 .log-container {
   min-height: 0;
-  max-height: 100%; }
+  max-height: 100%;
+  position: relative; }
 
 pre {
   max-height: 100%;
