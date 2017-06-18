@@ -13,3 +13,12 @@ editorEle.editor = editor;
 editorEle.getEditor = function() {
     return this.editor;
 }
+
+function getUrlParameter(name) {
+    name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+    var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+    var results = regex.exec(location.search);
+    return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+};
+
+editorEle.editor.setValue(getUrlParameter('code'));
