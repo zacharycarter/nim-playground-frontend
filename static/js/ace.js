@@ -21,4 +21,28 @@ function getUrlParameter(name) {
     return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
 };
 
-editorEle.editor.setValue(getUrlParameter('code'));
+if(getUrlParameter('code') != "") {
+    editorEle.editor.setValue(getUrlParameter('code'), -1);
+}
+
+if(getUrlParameter('gist') != "") {
+  var request = new XMLHttpRequest();
+  request.open('GET', 'https://api.github.com/gists/' + getUrlParameter('gist'), true);
+
+  request.onload = function() {
+    if (request.status >= 200 && request.status < 400) {
+      // Success!
+      var resp = request.responseText;
+      editorEle.editor.setValue(JSON.parse(resp).files['playground.nim'].content);
+    } else {
+      // We reached our target server, but it returned an error
+
+    }
+  };
+
+  request.onerror = function() {
+    // There was a connection error of some sort
+  };
+
+  request.send();
+}

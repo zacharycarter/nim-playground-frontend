@@ -8,17 +8,21 @@ type
 
 var loading = ""
 var gistLoading = ""
+var gistModalActive = ""
+var gistLink = ""
+var shareLink = ""
 
 proc getValue(n: Node): cstring {.importcpp: "#.getValue()".}
-proc setValue(n: Node, text: cstring) {.importcpp: "#.setValue()".}
+proc setValue(n: Node, text: cstring, cursorPos: SomeNumber) {.importcpp: "#.setValue()".}
 proc getEditor(n: Node): Node {.importcpp: "#.getEditor()".}
-proc `value=`(n: Node, text: cstring) {.importcpp: "#.value = #".}
 
 proc gistCB (httpStatus: int, response: cstring) =
   if httpStatus == 200:
+    let responseParts = split($response, "/")
     gistLoading = ""
-    let parsed = parseJson($response)
-    kout parsed
+    gistLink = $response
+    shareLink = "https://play.nim-lang.org?gist=$1" % responseParts[responseParts.len - 1]
+    gistModalActive = "is-active"
 
 proc cb (httpStatus: int, response: cstring) =
   if httpStatus == 200:
@@ -38,7 +42,12 @@ proc cb (httpStatus: int, response: cstring) =
     var programLog = document.getElementById("program-log-content")
     programLogContainer.classList.add("is-info")
     programLog.innerHtml = compileResponse.log
-    
+
+proc closeGistModal(ev: Event; n: VNode) =
+  gistModalActive = ""
+  gistLink = ""
+  shareLink = ""
+
 proc gist(ev: Event; n: VNode) =
   let ele = document.getElementById("editor")
   let req = %* {"code": $ele.getEditor().getValue()}
@@ -47,7 +56,7 @@ proc gist(ev: Event; n: VNode) =
 
 proc clear(ev: Event; n: VNode) =
   let ele = document.getElementById("editor")
-  ele.getEditor().setValue("")
+  ele.getEditor().setValue("", -1)
 
 proc compile(ev: Event; n: VNode) =
   var compileLogContainer = document.getElementById("compile-log")
@@ -64,7 +73,7 @@ proc compile(ev: Event; n: VNode) =
   let ele = document.getElementById("editor")
   let req = %* {"code": $ele.getEditor().getValue()}
   loading = "is-loading"
-  ajaxPost("/compile", @[], ($req).cstring, cb)
+  ajaxPost(":9999/compile", @[], ($req).cstring, cb)
   
 
 proc createDom(): VNode =
@@ -109,7 +118,21 @@ proc createDom(): VNode =
         tdiv(class="column is-narrow"):
           button(class="button", onclick=clear):
             text "Clear"
+        tdiv(class="modal $1" % gistModalActive, id="gist"):
+          tdiv(class="modal-background", onclick=closeGistModal)
+          tdiv(class="modal-content"):
+            tdiv(class="box"):
+              article(class="media"):
+                tdiv(class="media-content"):
+                  tdiv(class="content"):
+                    h2(class="subtitle"):
+                      text "Link to gist:"
+                    text gistLink
+                    h2(class="subtitle"):
+                      text "Shareable link:"
+                    text shareLink
 
+          button(class="modal-close is-large", onclick=closeGistModal)
     script(src = "static/js/ace.js")
 
 setRenderer createDom
