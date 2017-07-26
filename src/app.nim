@@ -73,7 +73,7 @@ proc compile(ev: Event; n: VNode) =
   let ele = document.getElementById("editor")
   let req = %* {"code": $ele.getEditor().getValue()}
   loading = "is-loading"
-  ajaxPost(":9999/compile", @[], ($req).cstring, cb)
+  ajaxPost("/compile", @[], ($req).cstring, cb)
   
 
 proc createDom(): VNode =
