@@ -7,11 +7,18 @@ type
     log: string
 
 var loading = ""
+var gistLoading = ""
 
 proc getValue(n: Node): cstring {.importcpp: "#.getValue()".}
 proc setValue(n: Node, text: cstring) {.importcpp: "#.setValue()".}
 proc getEditor(n: Node): Node {.importcpp: "#.getEditor()".}
 proc `value=`(n: Node, text: cstring) {.importcpp: "#.value = #".}
+
+proc gistCB (httpStatus: int, response: cstring) =
+  if httpStatus == 200:
+    gistLoading = ""
+    let parsed = parseJson($response)
+    kout parsed
 
 proc cb (httpStatus: int, response: cstring) =
   if httpStatus == 200:
@@ -32,6 +39,11 @@ proc cb (httpStatus: int, response: cstring) =
     programLogContainer.classList.add("is-info")
     programLog.innerHtml = compileResponse.log
     
+proc gist(ev: Event; n: VNode) =
+  let ele = document.getElementById("editor")
+  let req = %* {"code": $ele.getEditor().getValue()}
+  gistLoading = "is-loading"
+  ajaxPost("/gist", @[], ($req).cstring, gistCb)
 
 proc clear(ev: Event; n: VNode) =
   let ele = document.getElementById("editor")
@@ -53,7 +65,6 @@ proc compile(ev: Event; n: VNode) =
   let req = %* {"code": $ele.getEditor().getValue()}
   loading = "is-loading"
   ajaxPost("/compile", @[], ($req).cstring, cb)
-  kout ele
   
 
 proc createDom(): VNode =
@@ -65,15 +76,16 @@ proc createDom(): VNode =
         tdiv(class="heading", id="playground-logo-container"):
           h1(class="title", id="playground-logo"):
             text "| Playground"
-    #tdiv(class="hero"):
-    #  tdiv(class="hero-body"):
-        #tdiv(class="container"):
         
     tdiv(class="section"):
-      h1(class="title"):
-        text "Compile & Run"
-      h2(class="subtitle"):
-        text "Snippets of Nim in your browser"
+      tdiv(id="title"):
+        h1(class="title"):
+          text "Compile & Run"
+        h2(class="subtitle"):
+          text "Snippets of Nim in your browser"
+      tdiv(id="menu"):
+        button(class="button $1" % gistLoading, onclick=gist):
+          text "Create Gist"
       tdiv(class="tile is-ancestor"):
         tdiv(class="tile is-parent"):
           tdiv(class="tile is-child box editor-wrapper"):
@@ -81,20 +93,15 @@ proc createDom(): VNode =
               tdiv(id="editor")
         tdiv(class="tile is-vertical is-parent"):
           tdiv(class="tile is-child log-container"):
-          #  tdiv(class="notification", id="compile-log"):
-          #    pre(id="compile-log-content")
             article(class="message is-dark", id="compile-log"):
               tdiv(class="message-header"):
                 text "Compile Log"
               pre(class="message-body", id="compile-log-content")
           tdiv(class="tile is-child log-container"):
-          #  tdiv(class="notification", id="program-log"):
-          #    pre(id="program-log-content")
             article(class="message is-dark", id="program-log"):
               tdiv(class="message-header"):
                 text "Program Result"
               pre(class="message-body", id="program-log-content")
-        #tdiv(class="hero-foot"):
       tdiv(class="columns"):
         tdiv(class="column is-narrow"):
           button(class="button is-primary $1" % loading, onclick=compile):
