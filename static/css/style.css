@@ -4369,4 +4369,12 @@ pre {
 #main {
   flex-direction: column; }
 
+@media screen and (max-width: 768px) {
+  #logs {
+    flex-direction: row;
+    padding: 1em; }
+
+  #menu {
+    padding: 1em 0 1em 0; } }
+
 /*# sourceMappingURL=style.css.map */

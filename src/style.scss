@@ -83,6 +83,12 @@ pre {
   flex-direction: column;
 }
 
-#logs {
-  
+@media screen and (max-width: 768px) {
+  #logs {
+    flex-direction: row;
+    padding: 1em;
+  }
+  #menu {
+    padding: 1em 0 1em 0;
+  }
 }
