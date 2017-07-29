@@ -36,10 +36,8 @@ html, body {
 
 #playground-logo-container {
   overflow: hidden;
-}
-
-#playground-logo {
-  line-height: 1.75;
+  padding-left: 10px;
+  padding-top: 5px;
 }
 
 pre {
@@ -62,6 +60,8 @@ pre {
   min-height: 0;
   max-height: 100%;
   position: relative;
+  white-space: nowrap;
+  
 }
 
 pre {
@@ -77,4 +77,12 @@ pre {
 
 #menu {
   float:right;
+}
+
+#main {
+  flex-direction: column;
+}
+
+#logs {
+  flex-direction: row;
 }

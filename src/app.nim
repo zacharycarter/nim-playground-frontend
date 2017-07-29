@@ -80,13 +80,13 @@ proc createDom(): VNode =
   result = buildHtml(tdiv(class="container", id="wrapper")):
     nav(class="nav has-shadow"):
       tdiv(class="nav-left"):
-        a(class="nav-item", href="https://nim-lang.org"):
+        a(class="nav-item", href="https://play.nim-lang.org"):
           img(src="static/img/logo.svg", alt="Nim logo")
-        tdiv(class="heading", id="playground-logo-container"):
-          h1(class="title", id="playground-logo"):
-            text "| Playground"
+          tdiv(class="heading", id="playground-logo-container"):
+            h1(class="title is-hidden-mobile", id="playground-logo"):
+              text "| Playground"
         
-    tdiv(class="section"):
+    tdiv(class="section is-flex-mobile", id="main"):
       tdiv(id="title"):
         h1(class="title"):
           text "Compile & Run"
@@ -100,7 +100,7 @@ proc createDom(): VNode =
           tdiv(class="tile is-child box editor-wrapper"):
             tdiv(class="editor-container"):
               tdiv(id="editor")
-        tdiv(class="tile is-vertical is-parent"):
+        tdiv(class="tile is-vertical is-parent is-flex-mobile", id="logs"):
           tdiv(class="tile is-child log-container"):
             article(class="message is-dark", id="compile-log"):
               tdiv(class="message-header"):
@@ -111,7 +111,7 @@ proc createDom(): VNode =
               tdiv(class="message-header"):
                 text "Program Result"
               pre(class="message-body", id="program-log-content")
-      tdiv(class="columns"):
+      tdiv(class="columns is-flex-mobile"):
         tdiv(class="column is-narrow"):
           button(class="button is-primary $1" % loading, onclick=compile):
             text "Compile"

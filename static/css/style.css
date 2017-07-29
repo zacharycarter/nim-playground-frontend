@@ -1,4 +1,4 @@
-/*! bulma.io v0.4.1 | MIT License | github.com/jgthms/bulma */
+/*! bulma.io v0.4.2 | MIT License | github.com/jgthms/bulma */
 @keyframes spinAround {
   from {
     transform: rotate(0deg); }
@@ -1122,6 +1122,12 @@ a.box:active {
       left: calc(50% - (1em / 2));
       top: calc(50% - (1em / 2));
       position: absolute !important; }
+  .button.is-static {
+    background-color: whitesmoke;
+    border-color: #dbdbdb;
+    color: #7a7a7a;
+    box-shadow: none;
+    pointer-events: none; }
 
 button.button,
 input[type="submit"].button {
@@ -1377,6 +1383,7 @@ input[type="submit"].button {
 .select {
   display: inline-block;
   height: 2.25em;
+  max-width: 100%;
   position: relative;
   vertical-align: top; }
   .select:after {
@@ -1418,6 +1425,7 @@ input[type="submit"].button {
     cursor: pointer;
     display: block;
     font-size: 1em;
+    max-width: 100%;
     outline: none;
     padding-right: 2.5em; }
     .select select:focus, .select select.is-focused, .select select:active, .select select.is-active {
@@ -1582,8 +1590,7 @@ input[type="submit"].button {
         .field.has-addons .control .select select.is-active:hover {
           z-index: 4; }
     .field.has-addons .control.is-expanded {
-      flex-grow: 1;
-      flex-shrink: 0; }
+      flex-grow: 1; }
   .field.has-addons.has-addons-centered {
     justify-content: center; }
   .field.has-addons.has-addons-right {
@@ -1676,13 +1683,21 @@ input[type="submit"].button {
     right: 0; }
   .control.has-icon.has-icon-right .input {
     padding-right: 2.25em; }
-  .control.has-icons-left .input:focus ~ .icon, .control.has-icons-right .input:focus ~ .icon {
+  .control.has-icons-left .input:focus ~ .icon,
+  .control.has-icons-left .select select:focus ~ .icon, .control.has-icons-right .input:focus ~ .icon,
+  .control.has-icons-right .select select:focus ~ .icon {
     color: #7a7a7a; }
-  .control.has-icons-left .input.is-small ~ .icon, .control.has-icons-right .input.is-small ~ .icon {
+  .control.has-icons-left .input.is-small ~ .icon,
+  .control.has-icons-left .select select.is-small ~ .icon, .control.has-icons-right .input.is-small ~ .icon,
+  .control.has-icons-right .select select.is-small ~ .icon {
     font-size: 0.75rem; }
-  .control.has-icons-left .input.is-medium ~ .icon, .control.has-icons-right .input.is-medium ~ .icon {
+  .control.has-icons-left .input.is-medium ~ .icon,
+  .control.has-icons-left .select select.is-medium ~ .icon, .control.has-icons-right .input.is-medium ~ .icon,
+  .control.has-icons-right .select select.is-medium ~ .icon {
     font-size: 1.25rem; }
-  .control.has-icons-left .input.is-large ~ .icon, .control.has-icons-right .input.is-large ~ .icon {
+  .control.has-icons-left .input.is-large ~ .icon,
+  .control.has-icons-left .select select.is-large ~ .icon, .control.has-icons-right .input.is-large ~ .icon,
+  .control.has-icons-right .select select.is-large ~ .icon {
     font-size: 1.5rem; }
   .control.has-icons-left .icon, .control.has-icons-right .icon {
     color: #dbdbdb;
@@ -1692,11 +1707,13 @@ input[type="submit"].button {
     top: 0;
     width: 2.25em;
     z-index: 4; }
-  .control.has-icons-left .input {
+  .control.has-icons-left .input,
+  .control.has-icons-left .select select {
     padding-left: 2.25em; }
   .control.has-icons-left .icon.is-left {
     left: 0; }
-  .control.has-icons-right .input {
+  .control.has-icons-right .input,
+  .control.has-icons-right .select select {
     padding-right: 2.25em; }
   .control.has-icons-right .icon.is-right {
     right: 0; }
@@ -1948,9 +1965,9 @@ input[type="submit"].button {
   .table.is-narrow td,
   .table.is-narrow th {
     padding: 0.25em 0.5em; }
-  .table.is-striped tbody tr:nth-child(even) {
+  .table.is-striped tbody tr:not(.is-selected):nth-child(even) {
     background-color: #fafafa; }
-    .table.is-striped tbody tr:nth-child(even):hover {
+    .table.is-striped tbody tr:not(.is-selected):nth-child(even):hover {
       background-color: whitesmoke; }
 
 .tag {
@@ -2101,8 +2118,14 @@ input[type="submit"].button {
   border-radius: 290486px;
   cursor: pointer;
   display: inline-block;
+  flex-grow: 0;
+  flex-shrink: 0;
   font-size: 1rem;
   height: 20px;
+  max-height: 20px;
+  max-width: 20px;
+  min-height: 20px;
+  min-width: 20px;
   outline: none;
   position: relative;
   vertical-align: top;
@@ -2535,8 +2558,14 @@ input[type="submit"].button {
   border-radius: 290486px;
   cursor: pointer;
   display: inline-block;
+  flex-grow: 0;
+  flex-shrink: 0;
   font-size: 1rem;
   height: 20px;
+  max-height: 20px;
+  max-width: 20px;
+  min-height: 20px;
+  min-width: 20px;
   outline: none;
   position: relative;
   vertical-align: top;
@@ -4296,10 +4325,9 @@ html, body {
   left: 0; }
 
 #playground-logo-container {
-  overflow: hidden; }
-
-#playground-logo {
-  line-height: 1.75; }
+  overflow: hidden;
+  padding-left: 10px;
+  padding-top: 5px; }
 
 pre {
   white-space: pre-wrap;
@@ -4323,7 +4351,8 @@ pre {
 .log-container {
   min-height: 0;
   max-height: 100%;
-  position: relative; }
+  position: relative;
+  white-space: nowrap; }
 
 pre {
   max-height: 100%;
@@ -4336,5 +4365,11 @@ pre {
 
 #menu {
   float: right; }
+
+#main {
+  flex-direction: column; }
+
+#logs {
+  flex-direction: row; }
 
 /*# sourceMappingURL=style.css.map */
