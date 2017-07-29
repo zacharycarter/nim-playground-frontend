@@ -127,10 +127,12 @@ proc createDom(): VNode =
                   tdiv(class="content"):
                     h2(class="subtitle"):
                       text "Link to gist:"
-                    text gistLink
+                    a(href=gistLink):
+                      text gistLink
                     h2(class="subtitle"):
                       text "Shareable link:"
-                    text shareLink
+                    a(href=shareLink):
+                      text shareLink
 
           button(class="modal-close is-large", onclick=closeGistModal)
     script(src = "static/js/ace.js")
