@@ -27,13 +27,13 @@ if(getUrlParameter('code') != "") {
 
 if(getUrlParameter('gist') != "") {
   var request = new XMLHttpRequest();
-  request.open('GET', 'https://api.github.com/gists/' + getUrlParameter('gist'), true);
+  request.open('GET', '/gist/' + getUrlParameter('gist'), true);
 
   request.onload = function() {
     if (request.status >= 200 && request.status < 400) {
       // Success!
       var resp = request.responseText;
-      editorEle.editor.setValue(JSON.parse(resp).files['playground.nim'].content);
+      editorEle.editor.setValue(resp);
     } else {
       // We reached our target server, but it returned an error
 
