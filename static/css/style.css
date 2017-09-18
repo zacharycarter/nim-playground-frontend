@@ -4365,6 +4365,8 @@ pre {
 
 #menu {
   float: right; }
+  #menu #compilationTarget {
+    margin-left: 1em; }
 
 #main {
   flex-direction: column; }

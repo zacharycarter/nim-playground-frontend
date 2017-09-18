@@ -15,6 +15,7 @@ var shareLink = ""
 proc getValue(n: Node): cstring {.importcpp: "#.getValue()".}
 proc setValue(n: Node, text: cstring, cursorPos: SomeNumber) {.importcpp: "#.setValue()".}
 proc getEditor(n: Node): Node {.importcpp: "#.getEditor()".}
+proc selectedIndex(n: Node): cint {.importcpp: "#.selectedIndex".}
 
 proc gistCB (httpStatus: int, response: cstring) =
   if httpStatus == 200:
@@ -68,10 +69,13 @@ proc compile(ev: Event; n: VNode) =
   compileLogContainer.classList.remove("is-danger")
   programLog.innerHtml = ""
   programLogContainer.classList.remove("is-info")
+
+  let compilationTargetEle = document.getElementById("compilationTarget")
+  let compilationTarget = compilationTargetEle.options[compilationTargetEle.selectedIndex].value
   
 
   let ele = document.getElementById("editor")
-  let req = %* {"code": $ele.getEditor().getValue()}
+  let req = %* {"code": $ele.getEditor().getValue(), "compilationTarget": $compilationTarget }
   loading = "is-loading"
   ajaxPost("/compile", @[], ($req).cstring, cb)
   
@@ -93,8 +97,13 @@ proc createDom(): VNode =
         h2(class="subtitle"):
           text "Snippets of Nim in your browser"
       tdiv(id="menu"):
-        button(class="button $1" % gistLoading, onclick=gist):
+        button(class="button $1 menuItem" % gistLoading, onclick=gist):
           text "Create Gist"
+        select(id="compilationTarget", class="menuItem"):
+          option(value="c", selected="selected"):
+            text "C"
+          option(value="c++"):
+            text "C++"
       tdiv(class="tile is-ancestor"):
         tdiv(class="tile is-parent"):
           tdiv(class="tile is-child box editor-wrapper"):
