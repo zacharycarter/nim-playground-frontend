@@ -102,7 +102,7 @@ proc createDom(): VNode =
         select(id="compilationTarget", class="menuItem"):
           option(value="c", selected="selected"):
             text "C"
-          option(value="c++"):
+          option(value="cpp"):
             text "C++"
       tdiv(class="tile is-ancestor"):
         tdiv(class="tile is-parent"):
