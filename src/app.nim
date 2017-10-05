@@ -51,7 +51,9 @@ proc closeGistModal(ev: Event; n: VNode) =
 
 proc gist(ev: Event; n: VNode) =
   let ele = document.getElementById("editor")
-  let req = %* {"code": $ele.getEditor().getValue()}
+  let compilationTargetEle = document.getElementById("compilationTarget")
+  let compilationTarget = compilationTargetEle.options[compilationTargetEle.selectedIndex].value
+  let req = %* {"code": $ele.getEditor().getValue(), "compilationTarget": $compilationTarget }
   gistLoading = "is-loading"
   ajaxPost("/gist", @[], ($req).cstring, gistCb)
 
