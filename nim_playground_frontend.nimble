@@ -10,4 +10,4 @@ srcDir        = "src"
 # Dependencies
 
 requires "nim >= 0.16.1"
-requires "karax >= 0.1.0"
+requires "karax >= 1.0.0"

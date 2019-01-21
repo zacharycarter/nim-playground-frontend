@@ -1,4 +1,4 @@
-import karax, karaxdsl, vdom, kajax, json, strutils
+import karax / [karax, karaxdsl, vdom, kajax], json, strutils
 import dom except Event
 
 type
@@ -87,7 +87,7 @@ proc createDom(): VNode =
     nav(class="nav has-shadow"):
       tdiv(class="nav-left"):
         a(class="nav-item", href="https://play.nim-lang.org"):
-          img(src="static/img/logo.svg", alt="Nim logo")
+          img(src="img/logo.svg", alt="Nim logo")
           tdiv(class="heading", id="playground-logo-container"):
             h1(class="title is-hidden-mobile", id="playground-logo"):
               text "| Playground"
@@ -146,6 +146,7 @@ proc createDom(): VNode =
                       text shareLink
 
           button(class="modal-close is-large", onclick=closeGistModal)
-    script(src = "static/js/ace.js")
+    script(src = "js/ace.js")
 
 setRenderer createDom
+setForeignNodeId "editor"
